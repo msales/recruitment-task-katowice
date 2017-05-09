@@ -20,6 +20,10 @@ services:
             - ./logs/recruitment-task-katowice:/msales/recruitment-task-katowice/app/logs
         networks:
             - primary
+    composer:
+        build: ./docker/composer
+        volumes:
+            - .:/msales/recruitment-task-katowice
     nginx:
         build: ./docker/nginx
         ports:

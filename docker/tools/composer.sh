@@ -1,5 +1,5 @@
 #!/bin/bash
 
-printf "Running composer $@ on Docker Container using EXEC: \n"
+printf "Running composer $@ on Docker Composer Container: \n"
 
-docker-compose run --rm php composer $@
+docker-compose run --rm composer $@
