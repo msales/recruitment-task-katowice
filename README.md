@@ -1,5 +1,4 @@
-### Installation & First Run
+recruitment-task-katowice
+=========================
 
-1. Copy over the `.env.dist` as `.env`.
-2. Run `./up.sh` from the directory. It should load up the necessary containers.
-3. Visit `http://msales-katowice-trial.app/app_dev.php`
+A Symfony project created on May 5, 2017, 12:28 pm.

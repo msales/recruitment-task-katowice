@@ -1,5 +1,7 @@
 FROM php:7.0-fpm
 
+MAINTAINER Marek Szymeczko <marek.szymeczko@msales.com>
+
 RUN apt-get update && apt-get install -y \
     git \
     unzip
@@ -10,7 +12,7 @@ RUN composer --version
 
 # Set timezone
 RUN rm /etc/localtime
-RUN ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
+RUN ln -s /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
 RUN "date"
 
 # Type docker-php-ext-install to see available extensions
@@ -31,4 +33,5 @@ RUN echo "xdebug.remote_port=9001" >> /usr/local/etc/php/conf.d/docker-php-ext-x
 RUN echo 'alias sf="php app/console"' >> ~/.bashrc
 RUN echo 'alias sf3="php bin/console"' >> ~/.bashrc
 
-WORKDIR /var/www/symfony
+WORKDIR /msales/recruitment-task-katowice
+ENTRYPOINT ["php", "bin/console"]
