@@ -13,6 +13,7 @@ services:
             MYSQL_PASSWORD: user
     php:
         build: ./docker/php7
+        image: php-recruitment
         volumes:
             - .:/msales/recruitment-task-katowice
             - ./logs/recruitment-task-katowice:/msales/recruitment-task-katowice/app/logs

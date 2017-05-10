@@ -1,4 +1,4 @@
-FROM php
+FROM php-recruitment
 
 MAINTAINER Marek Szymeczko <marek.szymeczko@msales.com>
 
