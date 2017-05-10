@@ -11,30 +11,22 @@ services:
             MYSQL_DATABASE: ${MYSQL_DATABASE}
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-        networks:
-            - primary
     php:
         build: ./docker/php7
         volumes:
             - .:/msales/recruitment-task-katowice
             - ./logs/recruitment-task-katowice:/msales/recruitment-task-katowice/app/logs
-        networks:
-            - primary
     composer:
         build: ./docker/composer
-        volumes:
-            - .:/msales/recruitment-task-katowice
+        volumes_from:
+            - php
     nginx:
         build: ./docker/nginx
         ports:
             - 80:80
         volumes_from:
             - php
+        depends_on:
+            - php
         volumes:
             - ./logs/nginx/:/var/log/nginx
-        networks:
-            - primary
-
-networks:
-    primary:
-        driver: bridge
