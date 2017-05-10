@@ -3,9 +3,9 @@ version: '2'
 services:
     db:
         build: ./docker/mysql
-        image: mysql
         volumes:
             - "../recruitment-task-katowice-db:/var/lib/mysql"
+        image: mysql
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -16,17 +16,25 @@ services:
         volumes:
             - .:/msales/recruitment-task-katowice
             - ./logs/recruitment-task-katowice:/msales/recruitment-task-katowice/app/logs
+    sf:
+        build: ./docker/sf
+        volumes_from:
+            - php
+        depends_on:
+            - php
     composer:
         build: ./docker/composer
         volumes_from:
             - php
+        depends_on:
+            - php
     nginx:
         build: ./docker/nginx
+        volumes:
+            - ./logs/nginx/:/var/log/nginx
         ports:
             - 80:80
         volumes_from:
             - php
         depends_on:
             - php
-        volumes:
-            - ./logs/nginx/:/var/log/nginx

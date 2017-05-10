@@ -11,6 +11,7 @@ A Symfony project created on May 5, 2017, 12:28 pm.
 3. Add entry to /etc/hosts: `'127.0.0.1 msales-katowice-trial.app'`
 4. Run `docker-compose build`
 5. Install composer dependencies `./docker/tools/composer.sh install`
+6. Run docker-sync `docker-sync-stack start`
 
 
 ### Usage
