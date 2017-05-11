@@ -11,31 +11,35 @@ services:
             MYSQL_DATABASE: symfony
             MYSQL_USER: user
             MYSQL_PASSWORD: user
+    code:
+        build: ./docker/code
+        volumes:
+            - .:/msales/recruitment-task-katowice
+
     php:
         build: ./docker/php7
         image: php-recruitment
-        volumes:
-            - .:/msales/recruitment-task-katowice
-            - ./logs/recruitment-task-katowice:/msales/recruitment-task-katowice/app/logs
+        volumes_from:
+            - code
     sf:
         build: ./docker/sf
         volumes_from:
-            - php
+            - code
         depends_on:
-            - php
+            - code
     composer:
         build: ./docker/composer
         volumes_from:
-            - php
+            - code
         depends_on:
-            - php
+            - code
     nginx:
         build: ./docker/nginx
         volumes:
             - ./logs/nginx/:/var/log/nginx
         ports:
-            - 80:80
+            - 8082:80
         volumes_from:
-            - php
+            - code
         depends_on:
-            - php
+            - code
