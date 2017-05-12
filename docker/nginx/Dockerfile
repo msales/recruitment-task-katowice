@@ -13,11 +13,10 @@ RUN rm /etc/nginx/sites-enabled/default
 
 RUN echo "upstream php-upstream { server php:9000; }" > /etc/nginx/conf.d/upstream.conf
 
-RUN usermod -u 1000 www-data
+# Create www-data user, assign him PID 1000 and attach to www-data group.
+RUN usermod -u 1000 www-data -G www-data
 
 CMD ["nginx"]
-
-RUN service nginx restart
 
 EXPOSE 80
 EXPOSE 443
