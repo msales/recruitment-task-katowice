@@ -19,6 +19,7 @@ A Symfony project created on May 5, 2017, 12:28 pm.
 In order to use symfony console - use tool designed to it:
 
 1. `./docker/tools/sf.sh --version`
+2. App is available under `http://msales-katowice-trial.app:8082/app_dev.php`
 
 You can also use one of the prepared statements like:
 1. `./docker/tools/cache_clear.sh`
