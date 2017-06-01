@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+    code:
+        volumes:
+            - recruitment-task-katowice:/msales/recruitment-task-katowice:nocopy
+
+volumes:
+    recruitment-task-katowice:
+        external: true

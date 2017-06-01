@@ -1,0 +1,51 @@
+version: '2'
+
+services:
+    db:
+        build: ./docker/mysql
+        volumes:
+            - "../recruitment-task-katowice-db:/var/lib/mysql"
+        image: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: symfony
+            MYSQL_USER: user
+            MYSQL_PASSWORD: user
+
+    code:
+        build: ./docker/code
+        volumes:
+            - .:/msales/recruitment-task-katowice
+
+    php:
+        container_name: recruitment-task-katowice-php
+        build: ./docker/php7
+        image: php-recruitment
+        ports:
+            - 9002:9001
+        volumes_from:
+            - code
+
+    sf:
+        build: ./docker/sf
+        volumes_from:
+            - code
+        depends_on:
+            - code
+    composer:
+        build: ./docker/composer
+        volumes_from:
+            - code
+        depends_on:
+            - code
+
+    nginx:
+        build: ./docker/nginx
+        volumes:
+            - ./logs/nginx/:/var/log/nginx
+        ports:
+            - 8082:80
+        volumes_from:
+            - code
+        depends_on:
+            - code
