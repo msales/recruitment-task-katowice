@@ -28,19 +28,6 @@ services:
         volumes_from:
             - code
 
-    sf:
-        build: ./docker/sf
-        volumes_from:
-            - code
-        depends_on:
-            - code
-    composer:
-        build: ./docker/composer
-        volumes_from:
-            - code
-        depends_on:
-            - code
-
     nginx:
         build: ./docker/nginx
         volumes:
@@ -51,3 +38,17 @@ services:
             - code
         depends_on:
             - code
+
+    sf:
+        build: ./docker/sf
+        volumes_from:
+            - code
+        depends_on:
+            - php
+            
+    composer:
+        build: ./docker/composer
+        volumes_from:
+            - code
+        depends_on:
+            - php

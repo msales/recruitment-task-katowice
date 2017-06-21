@@ -9,9 +9,11 @@ A Symfony project created on May 5, 2017, 12:28 pm.
 1. Install docker sync https://github.com/EugenMayer/docker-sync/wiki/1.-Installation (done once system wide)
 2. Run `git clone git@github.com:msales/recruitment-task-katowice.git`
 3. Add entry to /etc/hosts: `'127.0.0.1 msales-katowice-trial.app'`
-4. Run `./init.sh`
-5. Install composer dependencies `./docker/tools/composer.sh install`
-5. Run cache clear `./docker/tools/cache_clear.sh`
+4. Build docker containers and volume by running: `./init.sh`
+5. Start unison sync along docker containers: `docker-sync-stack start`
+6. Install composer dependencies: `./docker/tools/composer.sh install`
+7. Run cache clear: `./docker/tools/cache_clear.sh`
+8. Visit: `http://msales-katowice-trial.app:8082/app_dev.php`
 
 
 ### Usage
