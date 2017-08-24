@@ -1,4 +1,6 @@
 {
+    "id": 3,
+    "advertiser_id": 1,
     "campaign_id": 456906,
     "end_date": "2032-12-31T00:00:00+00:00",
     "restrictions": [

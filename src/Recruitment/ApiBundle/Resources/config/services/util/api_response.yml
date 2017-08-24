@@ -1,3 +1,18 @@
 services:
+    symfony.finder:
+        class: Symfony\Component\Finder\Finder
+
+    recruitment.finder.api_files_finder:
+        class: Recruitment\ApiBundle\ApiResponse\Finder\ApiFilesFinder
+        arguments:
+            - "@symfony.finder"
+
+    recruitment.loader.file_loader:
+        class: Recruitment\ApiBundle\ApiResponse\Loader\FileLoader
+        arguments:
+            - "@recruitment.finder.api_files_finder"
+
     recruitment.api_response:
         class: Recruitment\ApiBundle\ApiResponse\ApiResponse
+        arguments:
+            - "@recruitment.loader.file_loader"

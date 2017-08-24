@@ -22,11 +22,7 @@ class AdvertiserController extends BaseRestController
      */
     public function getAdvertiserOffersAction(string $advertiser, int $advertiserId)
     {
-        $advertiserOffersResponse = $this->getApiResponse()->getApiResponseFromFiles($advertiser, $advertiserId);
-
-        $this->isEmptyResponse($advertiserOffersResponse);
-
-        return $advertiserOffersResponse;
+        return $this->getApiResponse()->getBulkApiResponse($advertiser, $advertiserId);
     }
 
     /**
@@ -46,10 +42,6 @@ class AdvertiserController extends BaseRestController
      */
     public function getOfferAction(string $advertiser, int $advertiserId, string $offer, int $offerId)
     {
-        $offerResponse = $this->getApiResponse()->getApiResponseFromFile($advertiser, $advertiserId, $offer, $offerId);
-
-        $this->isEmptyResponse($offerResponse);
-
-        return $offerResponse;
+        return $this->getApiResponse()->getApiResponse($advertiser, $advertiserId, $offer, $offerId);
     }
 }

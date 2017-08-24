@@ -1,4 +1,6 @@
 {
+    "id": 3,
+    "advertiser_id": 2,
     "app_details": {
         "bundle_id": "com.ncsoft.aramipuzzventure",
         "platform": "Android",

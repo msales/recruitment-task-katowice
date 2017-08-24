@@ -2,88 +2,52 @@
 declare(strict_types=1);
 namespace Recruitment\ApiBundle\ApiResponse;
 
-use Symfony\Component\Finder\Finder;
+use Recruitment\ApiBundle\ApiResponse\Loader\FileLoader;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class ApiResponse
 {
     /**
-     * @param string $directoryName
-     * @param int    $directoryNumber
-     *
-     * @return JsonResponse
+     * @var FileLoader
      */
-    public function getApiResponseFromFiles(string $directoryName, int $directoryNumber)
+    private $fileLoader;
+
+    /**
+     * @param FileLoader $fileLoader
+     */
+    public function __construct(FileLoader $fileLoader)
     {
-        return $this->getAllFilesContent($directoryName, $directoryNumber);
+        $this->fileLoader = $fileLoader;
     }
 
     /**
-     * @param string $directoryName
-     * @param int    $directoryNumber
-     * @param string $elementName
-     * @param int    $elementNumber
+     * @param string $entityName
+     * @param int    $entityId
      *
      * @return JsonResponse
      */
-    public function getApiResponseFromFile(string $directoryName, int $directoryNumber, string $elementName, int $elementNumber)
+    public function getBulkApiResponse(string $entityName, int $entityId)
     {
-        return $this->getFileContent($directoryName, $directoryNumber, $elementName, $elementNumber);
+        return new JsonResponse($this->fileLoader->getBulkFilesContent($entityName, $entityId));
     }
 
     /**
-     * @param string $directoryName
-     * @param int    $directoryNumber
+     * @param string $entityName
+     * @param int    $entityId
+     * @param string $propertyName
+     * @param int    $propertyId
      *
      * @return JsonResponse
      */
-    private function getAllFilesContent(string $directoryName, int $directoryNumber)
+    public function getApiResponse(string $entityName, int $entityId, string $propertyName, int $propertyId)
     {
-        $finder = $this->getFinder();
-        $finder->in(sprintf('%s/Files/%s/%s', __DIR__, ucwords($directoryName), $directoryNumber))
-            ->files()
-            ->name('*.json')
-        ;
+        $fileContent = $this->fileLoader->getFileContent($entityName, $entityId, $propertyName, $propertyId);
 
-        $fileContents = [];
-
-        foreach ($finder as $file) {
-            $fileContents[] = json_decode($file->getContents(), true);
+        if (!empty($fileContent)) {
+            return new JsonResponse($fileContent);
         }
 
-        return new JsonResponse($fileContents);
-    }
-
-    /**
-     * @param string $directoryName
-     * @param int    $directoryNumber
-     * @param string $elementName
-     * @param int    $elementNumber
-     *
-     * @return JsonResponse
-     */
-    private function getFileContent(string $directoryName, int $directoryNumber, string $elementName, int $elementNumber)
-    {
-        $finder = $this->getFinder();
-        $finder->in(sprintf('%s/Files/%s/%s', __DIR__, ucwords($directoryName), $directoryNumber))
-            ->files()
-            ->name(sprintf('%s_%s.json', $elementName, $elementNumber))
-        ;
-
-        $fileContents = "";
-
-        foreach ($finder as $file) {
-            $fileContents = json_decode($file->getContents(), true);
-        }
-
-        return new JsonResponse($fileContents);
-    }
-
-    /**
-     * @return Finder
-     */
-    private function getFinder()
-    {
-        return new Finder();
+        throw new NotFoundResourceException('Resource not found.');
     }
 }

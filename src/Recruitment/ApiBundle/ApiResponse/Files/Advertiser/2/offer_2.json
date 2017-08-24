@@ -1,4 +1,6 @@
 {
+    "id": 2,
+    "advertiser_id": 2,
     "app_details": {
         "bundle_id": "1218137964",
         "platform": "iOS",

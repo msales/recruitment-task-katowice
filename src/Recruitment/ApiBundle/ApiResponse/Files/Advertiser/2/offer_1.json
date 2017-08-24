@@ -1,4 +1,6 @@
 {
+    "id": 1,
+    "advertiser_id": 2,
     "app_details": {
         "bundle_id": "com.amazon.tahoe",
         "platform": "Android",
