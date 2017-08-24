@@ -1,0 +1,23 @@
+{
+    "app_details": {
+        "bundle_id": "1218137964",
+        "platform": "iOS",
+        "store_rating": 4.5,
+        "total_ratings": 10,
+        "category": "Games - Casual",
+        "size": "251.0 MB",
+        "developer": "NCSOFT",
+        "version": "1.0.6"
+    },
+    "campaigns": {
+        "cid": "12343623",
+        "click_url": "http://exampleclickurl.com",
+        "global": false,
+        "countries": [
+            "BRA"
+        ],
+        "points": 520,
+        "min_os_version": null,
+        "device_id_required": false
+    }
+}

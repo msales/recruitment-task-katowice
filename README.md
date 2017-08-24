@@ -29,3 +29,19 @@ You can also use one of the prepared statements like:
 3. `./docker/tools/db-verify.sh`
 
 This command runs destroys the container, runs the command, and creates new container.
+
+## Task description
+
+1. Create an `Offer` entity with the given fields:
+    * `application_id`
+    * `country_payout`
+    * `name`
+2. Create a command that will take `Advertiser ID` as a parameter.
+3. Command should fetch data from the specified endpoint and save the data within the entity.
+
+#### Additional information
+
+Routes to fetch data:
+
+* `/advertiser/{advertiserId}/offers` to fetch all offers data by the given Advertiser
+* `/advertiser/{advertiserId}/offer/{offerId}` to fetch one offer data by the given Advertiser

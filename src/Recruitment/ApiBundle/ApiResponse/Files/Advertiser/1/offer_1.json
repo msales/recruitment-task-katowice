@@ -1,0 +1,25 @@
+{
+    "campaign_id": 6310236,
+    "end_date": "2032-12-31T00:00:00+00:00",
+    "restrictions": [
+        "Invalid or duplicate leads unaccepted",
+        "Absolutely no Incentivization"
+    ],
+    "restrictions_text": "",
+    "payout_amount": 4.6,
+    "payout_currency": "USD",
+    "daily_remaining_leads": 625,
+    "countries": [
+        "GB"
+    ],
+    "mobile_app_id": "air.com.casinogamestudio.roulette",
+    "mobile_platform": "Android",
+    "mobile_min_version": "4.0",
+    "mobile_max_version": null,
+    "incentivized": 0,
+    "internal_category_id": "10",
+    "internal_subcategory_id": "39",
+    "click_url": "http://exampleclickurl.com",
+    "name": "Roulette",
+    "category": "Casino"
+}

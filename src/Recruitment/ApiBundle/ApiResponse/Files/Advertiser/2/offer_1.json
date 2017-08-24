@@ -1,0 +1,23 @@
+{
+    "app_details": {
+        "bundle_id": "com.amazon.tahoe",
+        "platform": "Android",
+        "store_rating": 4.1,
+        "total_ratings": 921,
+        "category": "Entertainment",
+        "size": "N/A",
+        "developer": "Amazon Mobile LLC",
+        "version": "FreeTimeApp-aosp_v3.9_Build-1.0.83.18.9674"
+    },
+    "campaigns": {
+        "cid": "1244775",
+        "click_url": "http://exampleclickurl.com",
+        "global": false,
+        "countries": [
+            "USA"
+        ],
+        "points": 1930,
+        "min_os_version": "5.0",
+        "device_id_required": false
+    }
+}

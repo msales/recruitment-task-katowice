@@ -1,0 +1,30 @@
+{
+    "campaign_id": 2310928,
+    "end_date": "2032-12-31T00:00:00+00:00",
+    "restrictions": [
+        "Invalid or duplicate leads unaccepted",
+        "Absolutely no Incentivization",
+        "No Search",
+        "No Adult Content",
+        "Own Creatives need Approval",
+        "No Social Networks",
+        "No Redirect Traffic"
+    ],
+    "restrictions_text": "Min KPI: 1% Purchases",
+    "payout_amount": 0.7,
+    "payout_currency": "USD",
+    "daily_remaining_leads": 836,
+    "countries": [
+        "ID"
+    ],
+    "mobile_app_id": "1195509064",
+    "mobile_platform": "iOS",
+    "mobile_min_version": "8.0",
+    "mobile_max_version": null,
+    "incentivized": 0,
+    "internal_category_id": "22",
+    "internal_subcategory_id": null,
+    "click_url": "http://exampleclickurl.com",
+    "name": "Sale Stock Toko Baju Online",
+    "category": "Shopping"
+}

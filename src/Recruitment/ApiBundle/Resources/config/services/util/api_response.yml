@@ -1,0 +1,3 @@
+services:
+    recruitment.api_response:
+        class: Recruitment\ApiBundle\ApiResponse\ApiResponse
