@@ -21,31 +21,31 @@ class FileLoader
     }
 
     /**
-     * @param string $directoryName
-     * @param int    $directoryNumber
+     * @param string $entityName
+     * @param int    $entityId
      *
      * @return array
      */
-    public function getBulkFilesContent(string $directoryName, int $directoryNumber)
+    public function getBulkFilesContent(string $entityName, int $entityId)
     {
-        $finder = $this->apiFilesFinder->setDirectoryFinder($directoryName, $directoryNumber);
+        $finder = $this->apiFilesFinder->createDirectoryFinder($entityName, $entityId);
         $finder->name('*.json');
 
         return $this->retrieveFileContents($finder);
     }
 
     /**
-     * @param string $directoryName
-     * @param int    $directoryNumber
-     * @param string $elementName
-     * @param int    $elementNumber
+     * @param string $entityName
+     * @param int    $entityId
+     * @param string $propertyName
+     * @param int    $propertyId
      *
      * @return array
      */
-    public function getFileContent(string $directoryName, int $directoryNumber, string $elementName, int $elementNumber)
+    public function getFileContent(string $entityName, int $entityId, string $propertyName, int $propertyId)
     {
-        $finder = $this->apiFilesFinder->setDirectoryFinder($directoryName, $directoryNumber);
-        $finder->name(sprintf('%s_%s.json', $elementName, $elementNumber));
+        $finder = $this->apiFilesFinder->createDirectoryFinder($entityName, $entityId);
+        $finder->name(sprintf('%s_%s.json', $propertyName, $propertyId));
 
         return $this->retrieveFileContents($finder);
     }

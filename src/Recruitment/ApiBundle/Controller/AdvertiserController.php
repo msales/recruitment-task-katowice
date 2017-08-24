@@ -20,9 +20,9 @@ class AdvertiserController extends BaseRestController
      *
      * @return JsonResponse
      */
-    public function getAdvertiserOffersAction(string $advertiser, int $advertiserId)
+    public function cgetAction(string $advertiser, int $advertiserId)
     {
-        return $this->getApiResponse()->getBulkApiResponse($advertiser, $advertiserId);
+        return $this->returnJsonResponse($this->getBulkData($advertiser, $advertiserId));
     }
 
     /**
@@ -40,8 +40,8 @@ class AdvertiserController extends BaseRestController
      *
      * @return JsonResponse
      */
-    public function getOfferAction(string $advertiser, int $advertiserId, string $offer, int $offerId)
+    public function getAction(string $advertiser, int $advertiserId, string $offer, int $offerId)
     {
-        return $this->getApiResponse()->getApiResponse($advertiser, $advertiserId, $offer, $offerId);
+        return $this->returnJsonResponse($this->getData($advertiser, $advertiserId, $offer, $offerId));
     }
 }

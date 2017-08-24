@@ -26,7 +26,7 @@ class ApiFilesFinder
      *
      * @return Finder
      */
-    public function setDirectoryFinder(string $directoryName, int $directoryNumber)
+    public function createDirectoryFinder(string $directoryName, int $directoryNumber)
     {
         $this->finder->in(sprintf('/%s/../Files/%s/%s', __DIR__, ucwords($directoryName), $directoryNumber))
             ->files()
