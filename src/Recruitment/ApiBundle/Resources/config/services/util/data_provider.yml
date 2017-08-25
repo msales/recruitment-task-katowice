@@ -1,0 +1,18 @@
+services:
+    recruitment.provider.abstract_data_provider:
+        abstract: true
+        class: Recruitment\ApiBundle\Util\ApiDataProvider\Abstraction\AbstractDataProvider
+
+    recruitment.provider.data_provider:
+        class: Recruitment\ApiBundle\Util\ApiDataProvider\Provider\DataProvider
+        parent: grapes.service_provider
+        tags:
+            - { name: grapes.service_provider, related_tag: api.data_provider, tag_alias: provider }
+
+    recruitment.provider.advertiser_data_provider:
+        parent: recruitment.provider.data_provider
+        class: Recruitment\ApiBundle\Util\ApiDataProvider\Provider\AdvertiserDataProvider
+        tags:
+            - { name: api.data_provider, provider: advertiser_data }
+        arguments:
+            - "@recruitment.loader.file_loader"

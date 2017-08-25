@@ -1,2 +1,2 @@
 imports:
-    - { resource: util/api_response.yml }
+    - { resource: util/data_provider.yml }

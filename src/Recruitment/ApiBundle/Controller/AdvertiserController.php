@@ -3,11 +3,14 @@ declare(strict_types=1);
 namespace Recruitment\ApiBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as REST;
-use Recruitment\ApiBundle\Controller\Abstraction\BaseRestController;
+use Recruitment\ApiBundle\Controller\Abstraction\AbstractBaseRestController;
+use Recruitment\ApiBundle\Util\ApiResponse\Traits\ApiFilesVariablesTrait;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class AdvertiserController extends BaseRestController
+class AdvertiserController extends AbstractBaseRestController
 {
+    use ApiFilesVariablesTrait;
+
     /**
      * @REST\Get("/{advertiser}/{advertiserId}/offers",
      *     requirements={
@@ -22,7 +25,14 @@ class AdvertiserController extends BaseRestController
      */
     public function cgetAction(string $advertiser, int $advertiserId)
     {
-        return $this->returnJsonResponse($this->getBulkData($advertiser, $advertiserId));
+        return $this->returnJsonResponse(
+            $this->getBulkData(
+                [
+                    $this->entityName => $advertiser,
+                    $this->entityId   => $advertiserId,
+                ]
+            )
+        );
     }
 
     /**
@@ -42,6 +52,20 @@ class AdvertiserController extends BaseRestController
      */
     public function getAction(string $advertiser, int $advertiserId, string $offer, int $offerId)
     {
-        return $this->returnJsonResponse($this->getData($advertiser, $advertiserId, $offer, $offerId));
+        return $this->returnJsonResponse(
+            $this->getData(
+                [
+                    $this->entityName   => $advertiser,
+                    $this->entityId     => $advertiserId,
+                    $this->propertyName => $offer,
+                    $this->propertyId   => $offerId,
+                ]
+            )
+        );
+    }
+
+    protected function getResource()
+    {
+        return 'advertiser_data';
     }
 }

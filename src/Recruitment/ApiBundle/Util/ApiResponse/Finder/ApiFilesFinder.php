@@ -1,9 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace Recruitment\ApiBundle\ApiResponse\Finder;
+namespace Recruitment\ApiBundle\Util\ApiResponse\Finder;
 
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ApiFilesFinder
 {
