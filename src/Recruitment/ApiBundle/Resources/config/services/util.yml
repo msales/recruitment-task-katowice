@@ -1,0 +1,2 @@
+imports:
+    - { resource: util/data_provider.yml }

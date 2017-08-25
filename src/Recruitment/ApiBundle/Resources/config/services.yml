@@ -1,0 +1,16 @@
+imports:
+    - { resource: services/util.yml }
+
+services:
+    symfony.finder:
+        class: Symfony\Component\Finder\Finder
+
+    recruitment.finder.api_files_finder:
+        class: Recruitment\ApiBundle\Util\ApiResponse\Finder\ApiFilesFinder
+        arguments:
+            - "@symfony.finder"
+
+    recruitment.loader.file_loader:
+        class: Recruitment\ApiBundle\Util\ApiResponse\Loader\FileLoader
+        arguments:
+            - "@recruitment.finder.api_files_finder"
