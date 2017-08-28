@@ -2,6 +2,7 @@
 
 namespace Recruitment\ApiBundle\Command;
 
+use Doctrine\DBAL\Exception\DatabaseObjectNotFoundException;
 use Recruitment\ApiBundle\Repository\OfferRepository;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -9,8 +10,15 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
+/**
+ * Class FetchOffersCommand
+ * @package Recruitment\ApiBundle\Command
+ */
 class FetchOffersCommand extends ContainerAwareCommand
 {
+    /**
+     *
+     */
     protected function configure()
     {
         $this
@@ -20,6 +28,10 @@ class FetchOffersCommand extends ContainerAwareCommand
             ->addArgument('advertiser_id', InputArgument::REQUIRED, 'The Advertiser ID');
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $id=$input->getArgument('advertiser_id');
@@ -32,11 +44,11 @@ class FetchOffersCommand extends ContainerAwareCommand
             ->getRepository(OfferRepository::class)
             ->findBy(['advertiser_id'=>$id]);
         if (!$offers) {
-            throw $this->createNotFoundException(
+            throw new \Exception(
                 'No offers found for this advertiser id '.$id
             );
         }
 
-        //return data
+        return $offers;
     }
 }
