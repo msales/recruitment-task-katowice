@@ -2,7 +2,6 @@
 
 namespace tests\AppBundle\Command;
 
-
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -28,6 +27,20 @@ class FetchOffersCommandTest extends WebTestCase
         $command->setApplication($application);
         $tester = new CommandTester($command);
         $tester->execute(['advertiser_id' =>'sfsdfs']);
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_for_no_data()
+    {
+        $this->expectException(\Exception::class);
+        $application = new Application(static::$kernel);
+        $application->add(new FetchOffersCommand());
+        $command = $application->find('app:fetch-offers');
+        $command->setApplication($application);
+        $tester = new CommandTester($command);
+        $tester->execute(['advertiser_id' =>'52']);
     }
 
 

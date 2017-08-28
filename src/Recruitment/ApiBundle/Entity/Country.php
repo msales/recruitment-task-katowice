@@ -1,12 +1,12 @@
 <?php
 
 namespace Recruitment\ApiBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
 
-
-/** @ORM\Embeddable() */
+/** @ORM\Embeddable */
 class Country
 {
-    /** @Column(type = "string") */
+    /** @ORM\Column(type="string") */
     private $country;
 
     /**

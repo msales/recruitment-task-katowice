@@ -53,14 +53,9 @@ class Offer
     private $advertiserId;
 
     /**
-     * @ORM\Embedded(class = "\Recruitment\ApiBundle\Entity\Country")
+     * @ORM\Embedded(class="Country")
      */
     private $country;
-
-    /**
-     * @ORM\Embedded(class = "\Recruitment\ApiBundle\Entity\Payout")
-     */
-    private $payout;
 
 
     /**
@@ -178,7 +173,7 @@ class Offer
      */
     public function setCountry($country)
     {
-        $this->country = $country;
+        $this->country = new Country($country);
 
         return $this;
     }
@@ -193,28 +188,6 @@ class Offer
         return $this->country;
     }
 
-    /**
-     * Set payout
-     *
-     * @param string $payout
-     *
-     * @return Offer
-     */
-    public function setPayout($payout)
-    {
-        $this->payout = $payout;
 
-        return $this;
-    }
-
-    /**
-     * Get payout
-     *
-     * @return string
-     */
-    public function getPayout()
-    {
-        return $this->payout;
-    }
 }
 

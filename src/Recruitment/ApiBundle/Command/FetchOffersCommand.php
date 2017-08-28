@@ -2,7 +2,6 @@
 
 namespace Recruitment\ApiBundle\Command;
 
-use Doctrine\DBAL\Exception\DatabaseObjectNotFoundException;
 use Recruitment\ApiBundle\Repository\OfferRepository;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -17,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class FetchOffersCommand extends ContainerAwareCommand
 {
     /**
-     *
+     * Setup the CLI Command
      */
     protected function configure()
     {

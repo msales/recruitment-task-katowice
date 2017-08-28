@@ -1,16 +1,15 @@
 <?php
 namespace Recruitment\ApiBundle\Entity;
 
-/** @ORM\Embeddable() */
+use Doctrine\ORM\Mapping as ORM;
+
+/** @ORM\Embeddable */
 class Payout
 {
-/** @Column(type = "float") */
-private $payout;
-
-    /**
-     * @var
-     */
-    private $currency;
+    /** @ORM\Column(type = 'integer') */
+    private $payout;
+    /** @ORM\Column(type='string') */
+   private $currency;
 
     /**
      * Payout constructor.
@@ -44,7 +43,7 @@ private $payout;
     /**
      * @return mixed
      */
-    public function payout()
+    public function getPayout()
     {
         return $this->payout;
     }
