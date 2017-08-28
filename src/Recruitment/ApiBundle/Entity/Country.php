@@ -3,7 +3,7 @@
 namespace Recruitment\ApiBundle\Entity;
 
 
-/** @Embeddable */
+/** @ORM\Embeddable() */
 class Country
 {
     /** @Column(type = "string") */

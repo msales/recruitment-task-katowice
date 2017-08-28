@@ -3,6 +3,9 @@
 namespace Recruitment\ApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Recruitment\ApiBundle\Repository\OfferRepository;
+use Recruitment\ApiBundle\Entity\Country;
+use Recruitment\ApiBundle\Entity\Payout;
 
 /**
  * Offer
@@ -50,16 +53,12 @@ class Offer
     private $advertiserId;
 
     /**
-     * @var string
-     *
-     *  @Embedded(class = "Country")
+     * @ORM\Embedded(class = "\Recruitment\ApiBundle\Entity\Country")
      */
     private $country;
 
     /**
-     * @var string
-     *
-     * @Embedded(class = "Payout")
+     * @ORM\Embedded(class = "\Recruitment\ApiBundle\Entity\Payout")
      */
     private $payout;
 
