@@ -7,6 +7,7 @@ use Recruitment\ApiBundle\Entity\Offer;
 use Recruitment\ApiBundle\Entity\Payout;
 use Recruitment\ApiBundle\Entity\PayoutInterface;
 use Recruitment\ApiBundle\Entity\PayoutSimple;
+use Recruitment\ApiBundle\Repository\OfferRepository;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -39,61 +40,65 @@ class FetchOffersCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         //get the provided advertiser_id
-        $id=$input->getArgument('advertiser_id');
-        if(!is_numeric($id)) throw new \InvalidArgumentException('Invalid ID');
-        $offers = $this->getData($id);
-
+        $id = $input->getArgument('advertiser_id');
+        if (!is_numeric($id)) throw new \InvalidArgumentException('Invalid ID');
         // getDoctrine Repository
 
-        $em=$this->getContainer()
+        $em = $this->getContainer()
             ->get('doctrine')
             ->getManager();
 
-        foreach($offers as $offer){
 
-            //2 types of record structures exist in the endpoint
-            //if campaign_id exists
-            $newOffer = new Offer();
-            $objType=1;
-            try {
-                $campaign = $offer->campaign_id;
-            } catch (\Exception $e) {
-                $objType=2;
-            }
+            //retrieve data from endpoint
+            $offers = $this->getData($id);
 
-            if($objType == 1) {
 
-                //setup for the first type
-                //this exists only in the one structure type
-                //and will trigger the exception
+            foreach ($offers as $offer) {
 
-                $newOffer->setAdvertiserId($offer->advertiser_id);
-                $newOffer->setCountry($offer->countries[0]);
-                $newOffer->setName($offer->name);
-                $newOffer->setApplicationId($offer->campaign_id);
-                $newOffer->setPlatform($offer->mobile_platform);
-                $payout=new PayoutSimple($offer->payout_amount, new Currency($offer->payout_currency));
-                $newOffer->setPayout($payout);
-            } else {
-                //setup for the second type
-                $newOffer->setAdvertiserId($offer->advertiser_id);
-                $newOffer->setCountry($offer->campaigns->countries[0]);
-                $newOffer->setName($offer->app_details->category);
-                $newOffer->setApplicationId($offer->campaigns->cid);
-                $newOffer->setPlatform($offer->app_details->platform);
-                $payout = new Payout($offer->campaigns->points, new Currency('USD'));
-                $newOffer->setPayout($payout);
-            }
+                //2 types of record structures exist in the endpoint
+                //if campaign_id exists
+                $newOffer = new Offer();
+                $objType = 1;
+                try {
+                    $campaign = $offer->campaign_id;
+                } catch (\Exception $e) {
+                    $objType = 2;
+                }
 
-            try{
-                $em->persist($newOffer);
-                $em->flush();
-                $output->writeln('Saved Offer for ' . $offer->advertiser_id);
-            } catch (\Exception $e){
-                $output->writeln($e->getMessage());
+                if ($objType == 1) {
+
+                    //setup for the first type
+                    //this exists only in the one structure type
+                    //and will trigger the exception
+
+                    $newOffer->setAdvertiserId($offer->advertiser_id);
+                    $newOffer->setCountry($offer->countries[0]);
+                    $newOffer->setName($offer->name);
+                    $newOffer->setApplicationId($offer->campaign_id);
+                    $newOffer->setPlatform($offer->mobile_platform);
+                    $payout = new PayoutSimple($offer->payout_amount, new Currency($offer->payout_currency));
+                    $newOffer->setPayout($payout);
+                } else {
+                    //setup for the second type
+                    $newOffer->setAdvertiserId($offer->advertiser_id);
+                    $newOffer->setCountry($offer->campaigns->countries[0]);
+                    $newOffer->setName($offer->app_details->category);
+                    $newOffer->setApplicationId($offer->campaigns->cid);
+                    $newOffer->setPlatform($offer->app_details->platform);
+                    $payout = new Payout($offer->campaigns->points, new Currency('USD'));
+                    $newOffer->setPayout($payout);
+                }
+
+                try {
+                    $em->persist($newOffer);
+                    $em->flush();
+                    $output->writeln('Saved Offer for ' . $offer->advertiser_id);
+                } catch (\Exception $e) {
+                    $output->writeln($e->getMessage());
+                }
             }
         }
-    }
+
 
     /**
      * @param $advertiser_id
