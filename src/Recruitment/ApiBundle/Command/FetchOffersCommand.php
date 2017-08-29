@@ -70,7 +70,7 @@ class FetchOffersCommand extends ContainerAwareCommand
                 $newOffer->setAdvertiserId($offer->advertiser_id);
                 $newOffer->setCountry($offer->countries[0]);
                 $newOffer->setName($offer->name);
-                $newOffer->setApplicationId($offer->mobile_app_id);
+                $newOffer->setApplicationId($offer->campaign_id);
                 $newOffer->setPlatform($offer->mobile_platform);
                 $payout=new PayoutSimple($offer->payout_amount, new Currency($offer->payout_currency));
                 $newOffer->setPayout($payout);
@@ -78,16 +78,16 @@ class FetchOffersCommand extends ContainerAwareCommand
                 //setup for the second type
                 $newOffer->setAdvertiserId($offer->advertiser_id);
                 $newOffer->setCountry($offer->campaigns->countries[0]);
-                //$newOffer->setName($offer->app_details->category);
-                //$newOffer->setApplicationId($offer->campaigns->cid);
-                //$newOffer->setPlatform($offer->app_details->platform);
-                //$payout = new Payout($offer->campaigns->points, new Currency('USD'));
-                //$newOffer->setPayout($payout);
+                $newOffer->setName($offer->app_details->category);
+                $newOffer->setApplicationId($offer->campaigns->cid);
+                $newOffer->setPlatform($offer->app_details->platform);
+                $payout = new Payout($offer->campaigns->points, new Currency('USD'));
+                $newOffer->setPayout($payout);
             }
 
             try{
                 $em->persist($newOffer);
-                $em->flash();
+                $em->flush();
                 $output->writeln('Saved Offer for ' . $offer->advertiser_id);
             } catch (\Exception $e){
                 $output->writeln($e->getMessage());

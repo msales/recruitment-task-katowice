@@ -35,4 +35,9 @@ class Currency
     {
         return $this->isoCode;
     }
+
+    public function __toString()
+    {
+        return $this->isoCode;
+    }
 }

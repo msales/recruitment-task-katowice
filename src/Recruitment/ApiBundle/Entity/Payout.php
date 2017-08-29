@@ -15,10 +15,10 @@ class Payout implements PayoutInterface
      * Payout constructor.
      * @param $amount
      */
-    public function __construct($amount)
+    public function __construct($amount, Currency $currency)
     {
-        $this->setPayout($amount->payout);
-        $this->setCurrency($amount->currency);
+        $this->setPayout($amount);
+        $this->setCurrency($currency);
     }
 
     /**
