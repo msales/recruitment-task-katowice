@@ -23,8 +23,12 @@ class Country
      */
     public function setCountry($country)
     {
-        if (!preg_match('/^[A-Z]{2}$/', $country)) {
+        if (!preg_match('/^[A-Z]{2,3}$/', $country)) {
             throw new \InvalidArgumentException();
+        }
+
+        if(strlen($country)==3) {
+            substr_replace($country, "", -1);
         }
         $this->country = $country;
     }

@@ -31,7 +31,7 @@ class FetchOffersCommandTest extends WebTestCase
 
     /**
      * @test
-     */
+    */
     public function it_throws_an_exception_for_no_data()
     {
         $this->expectException(\Exception::class);
@@ -43,5 +43,20 @@ class FetchOffersCommandTest extends WebTestCase
         $tester->execute(['advertiser_id' =>'52']);
     }
 
+    /**
+     * @test
+     */
+    public function it_saves_the_incoming_data()
+    {
+
+        $application = new Application(static::$kernel);
+        $application->add(new FetchOffersCommand());
+        $command = $application->find('app:fetch-offers');
+        $command->setApplication($application);
+        $tester = new CommandTester($command);
+        $expected = $tester->execute(['advertiser_id' =>'2']);
+
+        $this->assertEquals(3,$expected);
+    }
 
 }

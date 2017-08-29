@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Recruitment\ApiBundle\Repository\OfferRepository;
 use Recruitment\ApiBundle\Entity\Country;
 use Recruitment\ApiBundle\Entity\Payout;
+use Recruitment\ApiBundle\Entity\PayoutInterface;
 
 /**
  * Offer
@@ -57,7 +58,10 @@ class Offer
      */
     private $country;
 
-
+    /**
+     * @ORM\Embedded(class="PayoutValueObject")
+     */
+    private $payout;
     /**
      * Get id
      *
@@ -188,6 +192,28 @@ class Offer
         return $this->country;
     }
 
+    /**
+     * Set payout
+     *
+     * @param string $payout
+     *
+     * @return Offer
+     */
+    public function setPayout(PayoutInterface $payout)
+    {
+        $this->payout = new PayoutValueObject($payout);
 
+        return $this;
+    }
+
+    /**
+     * Get payout
+     *
+     * @return string
+     */
+    public function getPayout()
+    {
+        return $this->payout;
+    }
 }
 

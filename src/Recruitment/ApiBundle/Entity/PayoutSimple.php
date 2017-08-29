@@ -4,21 +4,22 @@ namespace Recruitment\ApiBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 
-class Payout implements PayoutInterface
+class PayoutSimple implements PayoutInterface
 {
 
     private $payout;
 
-   private $currency;
+    private $currency;
 
     /**
      * Payout constructor.
      * @param $amount
+     * @param Currency $currency
      */
-    public function __construct($amount)
+    public function __construct($amount, Currency $currency)
     {
-        $this->setPayout($amount->payout);
-        $this->setCurrency($amount->currency);
+        $this->setPayout($amount);
+        $this->setCurrency($currency);
     }
 
     /**
@@ -28,13 +29,13 @@ class Payout implements PayoutInterface
     {
         if(!is_numeric($amount)) throw new \InvalidArgumentException('The amount is not valid');
 
-        $this->payout = number_format($amount/1000, 2);
+        $this->payout = number_format($amount, 2);
     }
 
     /**
      * @param Currency $currency
      */
-     function setCurrency(Currency $currency)
+    public function setCurrency(Currency $currency)
     {
         $this->currency = $currency;
     }
