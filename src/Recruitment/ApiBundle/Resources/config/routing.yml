@@ -1,3 +1,8 @@
 advertisers:
     type: rest
     resource: '@ApiBundle/Controller/AdvertiserController.php'
+
+# add routing to offer controller
+offers:
+    type: rest
+    resource: '@ApiBundle/Controller/OfferController.php'

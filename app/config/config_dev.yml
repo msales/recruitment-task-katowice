@@ -1,6 +1,11 @@
 imports:
     - { resource: config.yml }
 
+parameters:
+    # base url to retrieve the advertiser data
+    offers:
+        advertiser_url: 'http://192.168.65.101:8082/app_dev.php/advertiser/{advertiserId}/offers'
+
 framework:
     router:
         resource: '%kernel.root_dir%/config/routing_dev.yml'
