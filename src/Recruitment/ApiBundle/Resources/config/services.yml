@@ -14,3 +14,6 @@ services:
         class: Recruitment\ApiBundle\Util\ApiResponse\Loader\FileLoader
         arguments:
             - "@recruitment.finder.api_files_finder"
+
+    recruitment.mapper.offer:
+        class: Recruitment\ApiBundle\Mapper\OfferEntityMapper
