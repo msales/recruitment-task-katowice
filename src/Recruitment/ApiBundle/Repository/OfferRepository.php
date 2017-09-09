@@ -2,6 +2,8 @@
 
 namespace Recruitment\ApiBundle\Repository;
 
+use Recruitment\ApiBundle\Entity\Offer;
+
 /**
  * OfferRepository
  *
@@ -10,4 +12,19 @@ namespace Recruitment\ApiBundle\Repository;
  */
 class OfferRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param int $applicationId
+     *
+     * @return mixed
+     */
+    public function findOrNew(int $applicationId)
+    {
+        $result = $this->findOneBy(['applicationId' => $applicationId]);
+
+        if (empty($result)) {
+            return new Offer();
+        }
+
+        return $result;
+    }
 }

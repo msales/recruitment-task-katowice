@@ -43,15 +43,17 @@ class ApiFetchOfferCommand extends ContainerAwareCommand
         ;
         /** @var \Doctrine\ORM\EntityManager $entityManager */
         $entityManager = $this->getContainer()->get('doctrine.orm.default_entity_manager');
+        /** @var \Recruitment\ApiBundle\Repository\OfferRepository $repo */
+        $repo = $entityManager->getRepository('ApiBundle:Offer');
 
         foreach ($result as $data) {
-            $offer = $offerEntityMapper->map($data);
+            $offer = $offerEntityMapper->map($data, $repo);
             $entityManager->persist($offer);
         }
 
         $entityManager->flush();
 
-        $output->writeln('Command result.');
+        $output->writeln('Success!');
     }
 
 }
