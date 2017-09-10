@@ -10,31 +10,19 @@ namespace Recruitment\ApiBundle\Util\Advertisers;
 
 
 /**
- * Class Advertiser2
  * @package Recruitment\ApiBundle\Util
  */
-class Advertiser2 extends BaseAdvertiser
+class AdvertiserOffer2 extends BaseAdvertiserOffer
 {
 
   /**
-   * Advertiser2 constructor.
-   *
-   * @param array $offerData
-   */
-  public function __construct(array $offerData)
-  {
-    //invoke parent constructor
-    parent::__construct($offerData);
-  }
-
-  /**
-   * Returns the country for this advertiser offer
+   * Returns the countries for this advertiser offer
    *
    * @return string
    */
-  public function getCountry() : string
+  public function getCountries() : array
   {
-    return $this->offerData['campaigns']['countries'][0];
+    return $this->offerData['campaigns']['countries'];
   }
 
   /**
@@ -76,15 +64,8 @@ class Advertiser2 extends BaseAdvertiser
   /**
    * @return float
    */
-  public function getPayoutAmount() : float
-  {
-    //get the number of points
-    $points = $this->offerData['campaigns']['points'];
-
-    //10 points = 0.01 USD
-    return (float) ($points / 10) * 0.01;
-
-
+  public function getPayout() : float {
+    return $this->offerData['campaigns']['points'];
   }
 
 
