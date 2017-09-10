@@ -1,6 +1,6 @@
 <?php
 
-namespace Recruitment\ApiBundle\Util;
+namespace Recruitment\ApiBundle\Util\Advertisers;
 
 /**
  * Created by PhpStorm.
@@ -8,13 +8,13 @@ namespace Recruitment\ApiBundle\Util;
  * Date: 02/09/2017
  * Time: 13:26
  */
-interface OfferInterface
+interface AdvertiserOfferInterface
 {
 
   /**
    * @return string
    */
-  public function getCountry() : string;
+  public function getCountries() : array;
 
   /**
    * @return string
@@ -39,6 +39,6 @@ interface OfferInterface
   /**
    * @return float
    */
-  public function getPayoutAmount(): float;
+  public function getPayout(): float;
 
 }
