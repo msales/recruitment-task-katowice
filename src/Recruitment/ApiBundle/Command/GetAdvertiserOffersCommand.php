@@ -2,11 +2,17 @@
 
 namespace Recruitment\ApiBundle\Command;
 
+
 use Exception;
-use Recruitment\ApiBundle\Util\Advertisers\Advertiser1;
+use Recruitment\ApiBundle\Controller\OffersController;
+use Recruitment\ApiBundle\Factory\AdvertiserOfferFactory;
+use Recruitment\ApiBundle\Service\Provider\GuzzleHttpClient;
+use Recruitment\ApiBundle\Util\Advertisers\AdvertiserOffer1;
 use Recruitment\ApiBundle\Entity\Offer;
-use Recruitment\ApiBundle\Service\ApiService;
+use Recruitment\ApiBundle\Service\OffersApiService;
+use Recruitment\ApiBundle\Util\Advertisers\BaseAdvertiserOffer;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Asset\Packages;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
@@ -21,6 +27,18 @@ use Symfony\Component\Debug\Exception\ClassNotFoundException;
  */
 class GetAdvertiserOffersCommand extends ContainerAwareCommand
 {
+
+  /**
+   * @var OffersController
+   */
+  private $offersController;
+
+  public function __construct(OffersController $offersController)
+  {
+    parent::__construct();
+    $this->offersController = $offersController;
+  }
+
   /**
    * Configure the CLI command
    */
@@ -39,79 +57,11 @@ class GetAdvertiserOffersCommand extends ContainerAwareCommand
    */
   protected function execute(InputInterface $input, OutputInterface $output)
   {
-
-    //read advertiser_id command input
     $advertiserId = $input->getArgument('advertiser_id');
 
-    //abort if we do not have a valid advertiser id
-    if (!is_numeric($advertiserId)) {
-      throw new \InvalidArgumentException('advertiser_id.invalid');
-    }
+    $this->offersController->saveOffersByAdvertiserId($advertiserId);
 
-    //get the api service instance
-    $apiService = $this->getContainer()->get("api_service");
+  }
 
-    //get the offers from the service
-    try {
-      $offers = $apiService->getOffersByAdvertiserId(intval($advertiserId));
-    } catch (Exception $e){
-        die("No offers found ...");
-    }
-
-    //iterate on the offers
-    foreach ($offers as $offer){
-
-      //compose the class name dynamically
-      $class_name = '\Recruitment\ApiBundle\Util\Advertisers\Advertiser' . $advertiserId;
-
-      //initialie the class
-      try {
-        /** @var BaseAdvertiser $advertiserInstance */
-        $advertiserInstance = new $class_name($offer);
-      } catch (\ClassNotFoundException $e){
-        die("No handler defined for advertiser with id [$advertiserId]. ");
-      }
-
-      //check if the offer is already saved in the database
-      $offer = $this->getContainer()
-                  ->get('doctrine')
-                  ->getRepository(Offer::class)
-                  ->findOneByApplicationId($advertiserInstance->getCampaignId());
-
-      if ($offer instanceOf Offer){
-        $output->writeln('Offer with app id ' . $advertiserInstance->getCampaignId() . ' already imported. Skipping to next ..' );
-        continue;
-      }
-
-      //if currency is not USD we abort
-      if ($advertiserInstance->getPayoutCurrency() !== "USD"){
-        $output->writeln("Only USD Currency supported for the moment ...");
-        die();
-      }
-
-      //create a new offer instance
-      $offer = new Offer();
-      $offer->setAdvertiserId($advertiserInstance->getAdvertiserId());
-      $offer->setApplicationId($advertiserInstance->getCampaignId());
-      $offer->setPlatform($advertiserInstance->getPlatform());
-      $offer->setCountry($advertiserInstance->getCountry());
-      $offer->setName($advertiserInstance->getOfferName());
-      $offer->setPayout($advertiserInstance->getPayoutAmount());
-
-      try {
-
-        //get the doctrine entity manager instance and persist the offer instance
-        $entityManager = $this->getContainer()->get('doctrine')->getManager();
-        $entityManager->persist($offer);
-        $entityManager->flush();
-        $output->writeln('Saved Offer with id ' . $offer->getApplicationId());
-
-      } catch (\Exception $e) {
-          $output->writeln($e->getMessage());
-      }
-
-    }//endFor
-
-  }//endExecute
 
 }
