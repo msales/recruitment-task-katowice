@@ -2,7 +2,7 @@
 
 namespace Recruitment\ApiBundle\Service;
 
-use GuzzleHttp\Client;
+use Recruitment\ApiBundle\Service\Provider\HttpClient;
 
 /**
  * Created by PhpStorm.
@@ -10,28 +10,22 @@ use GuzzleHttp\Client;
  * Date: 02/09/2017
  * Time: 12:38
  */
-class ApiService
+class OffersApiService
 {
 
   /**
-   * The guzzle client singleton instance
-   *
-   * @var
+   * Routes for this api service
    */
-  private static $guzzleClient;
+  CONST GET_ADVERTISER_OFFERS_ROUTE = "/advertiser/%s/offers";
+  CONST GET_OFFER_BY_ID_ROUTE = "/advertiser/%s/offers/%s";
 
+  private $httpClient;
 
   /**
    * ApiService constructor.
    */
-  public function __construct(){
-
-    if (!isset(self::$guzzleClient)){
-      self::$guzzleClient = new Client(
-        ['base_uri' => 'http://msales-katowice-trial.app:8082/']
-      );
-    }
-
+  public function __construct(HttpClient $httpClient){
+    $this->httpClient = $httpClient;
   }
 
   /**
@@ -45,19 +39,13 @@ class ApiService
    */
   public function getOffersByAdvertiserId(int $advertiserId) : array
   {
-    //compose the endpoint route
-    $route = "advertiser/$advertiserId/offers";
+    $response = $this->httpClient->get(sprintf(self::GET_ADVERTISER_OFFERS_ROUTE, $advertiserId));
 
-    //do the GET
-    $response = self::$guzzleClient->get($route);
-
-    //if we do not have a valid respone , throw an exception
     if ($response->getStatusCode() !== 200){
       throw new \Exception("api_service.get_offers.failed ", $response->getStatusCode());
     }
 
-    //return the json decoded data
-    return json_decode($response->getBody()->getContents(),true);
+    return json_decode($response->getBodyContents(),true);
 
   }
 
@@ -74,20 +62,13 @@ class ApiService
   public function getOffersByOfferId(int $advertiserId, int $offerId) : array
   {
 
-    //compose the endpoint route
-    $route = "advertiser/$advertiserId/offers/$offerId";
+    $response = $this->httpClient->get(sprintf(self::GET_ADVERTISER_OFFERS_ROUTE, $advertiserId, $offerId));
 
-    //do the GET
-    $response = self::$guzzleClient->get($route);
-
-    //if we do not have a valid respone , throw an exception
     if ($response->getStatusCode() !== 200){
       throw new \Exception("api_service.get_offers.failed ", $response->getStatusCode());
     }
 
-    //return the json decoded data
-    return json_decode($response->getBody()->getContents(),true);
-
+    return json_decode($response->getBodyContents(),true);
 
   }
 
