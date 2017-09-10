@@ -119,4 +119,16 @@ abstract class EnumType extends Type
     {
         return $this->name;
     }
+
+    /**
+     * @return array
+     * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
+     * @see EnumType::$values
+     * @since TODO ${VERSION}
+     * @codeCoverageIgnore
+     */
+    public function getValues()
+    {
+        return $this->values;
+    }
 }

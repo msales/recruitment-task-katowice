@@ -15,13 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Recruitment\Doctrine\DBAL\Types\EnumPlatformType;
 
 /**
- * Class Offer
- *
- * @author Panagiotis Vagenas <pan.vagenas@gmail.com>
- * @date 2017-09-10
- * @since TODO ${VERSION}
- * @package Recruitment\ApiBundle\Entity
- * @copyright Copyright (c) 2017 Panagiotis Vagenas
+ * @ORM\Table(name="offer")
+ * @ORM\Entity(repositoryClass="Recruitment\ApiBundle\Repository\OfferRepository")
  */
 class Offer
 {
@@ -42,9 +37,9 @@ class Offer
     private $applicationId;
 
     /**
-     * @var string
+     * @var array
      *
-     * @ORM\Column(name="country", type="string", length=2)
+     * @ORM\Column(name="country", type="array", length=2)
      */
     private $country;
 
@@ -110,7 +105,7 @@ class Offer
     /**
      * Set country
      *
-     * @param string $country
+     * @param array $country
      *
      * @return Offer
      * @codeCoverageIgnore
@@ -125,7 +120,7 @@ class Offer
     /**
      * Get country
      *
-     * @return string
+     * @return array
      * @codeCoverageIgnore
      */
     public function getCountry()
