@@ -1,9 +1,31 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/service_container.html
 parameters:
-    #parameter_name: value
+
+    base_url : "http://msales-katowice-trial.app:8082/"
+    full_api_url : "/advertiser/%%u/offers"
+    single_offer_url : "/advertiser/%%u/offer/%%u"
+    advertiser_field_ident : 'advertiser_id'
 
 services:
-    #service_name:
-    #    class: AppBundle\Directory\ClassName
-    #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+
+    fetch_advertiser_api:
+        class: Recruitment\AdvTestBundle\Controller\ApiCallController
+        arguments : ['%base_url%']
+
+    advertiser_logic:
+        class: Recruitment\AdvTestBundle\Controller\AdvController
+        arguments : ['@fetch_advertiser_api', '%advertiser_field_ident%']
+
+    fetch_full_api_command:
+        class : Recruitment\AdvTestBundle\Command\FetchApiCommand
+        arguments : ['@advertiser_logic']
+        tags:
+            - { name : console.command }
+
+    fetch_offer_api_command:
+        class : Recruitment\AdvTestBundle\Command\FetchOfferApiCommand
+        arguments : ['@advertiser_logic']
+        tags:
+            - { name : console.command }
+

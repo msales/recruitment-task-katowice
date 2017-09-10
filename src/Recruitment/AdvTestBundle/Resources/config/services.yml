@@ -1,0 +1,30 @@
+#parameters :
+#    advertiser :
+#        1 :
+#            - { platform : mobile_platform, payout : payout_amount, country : countries.0, name : name }
+#        2 :
+#            - { platform : app_details.platform, payout : campaigns.points, country : campaigns.countries.0, name : name }
+
+
+services:
+    adv.strategy :
+        parent : grapes.service_provider
+        tags :
+            - { name : grapes.service_provider, related_tag : adv.type, tag_alias : type }
+
+    adv.abstract_advertiser:
+        abstract: true
+        class: Recruitment\AdvTestBundle\Utils\AbstractAdvertiser
+
+    adv.advertiser_one:
+        parent: adv.abstract_advertiser
+        class:  Recruitment\AdvTestBundle\Utils\AdvertiserOne
+        tags:
+            - { name: adv.type , type : 1}
+
+    adv.advertiser_two:
+        parent: adv.abstract_advertiser
+        class:  Recruitment\AdvTestBundle\Utils\AdvertiserTwo
+        tags:
+            - { name: adv.type , type : 2}
+
