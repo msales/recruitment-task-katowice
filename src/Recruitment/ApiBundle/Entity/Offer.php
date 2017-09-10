@@ -11,6 +11,7 @@
 namespace Recruitment\ApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Recruitment\ApiBundle\Util\Advertisers\BaseAdvertiserOffer;
 
 /**
  * Class Offer
@@ -191,6 +192,22 @@ class Offer
   public function setAdvertiserId(int $advertiserId)
   {
     $this->advertiserId = $advertiserId;
+  }
+
+
+  /**
+   *
+   * Initializes an offer given an AdvertiserOffer instance
+   * @param BaseAdvertiserOffer $advertiserOffer
+   */
+  public function fromAdvertiserOffer(BaseAdvertiserOffer $advertiserOffer) {
+    $countries = $advertiserOffer->getCountries();
+    $this->setAdvertiserId($advertiserOffer->getAdvertiserId());
+    $this->setApplicationId($advertiserOffer->getCampaignId());
+    $this->setPlatform($advertiserOffer->getPlatform());
+    $this->setCountry(array_pop($countries));
+    $this->setName($advertiserOffer->getOfferName());
+
   }
 
 
