@@ -58,3 +58,39 @@ Example routes to fetch data:
 
 * `/advertiser/{advertiserId}/offers` to fetch all offers data by the given Advertiser
 * `/advertiser/{advertiserId}/offer/{offerId}` to fetch one offer data by the given Advertiser
+
+
+### Command added
+
+generate first database
+
+``` 
+./docker/tools/sf.sh doctrine:database:create
+./docker/tools/sf.sh doctrine:schema:update --force
+```
+
+in order to let know the system where it has to fetch offers we need to figure IP out with that commands
+`docker ps` => that lists all the containers
+```
+9001/tcp     recruitment-task-katowice-php
+9f4593f14b83        recruitmenttaskkatowice_nginx   "nginx"                  2 hours ago         Up 12 minutes       443/tcp, 0.0.0.0:8082->80/tcp        recruitmenttaskkatowice_nginx_1
+```
+look at the line that is attending requests on port 80
+
+`docker inspect 9f4593f14b83` => that shows info about the container
+
+and look for the line that contains `"IPAddress": "x.x.x.x",`
+
+in parameters.yml just declare the endpoint
+
+    advertisers_endpoint: http://x.x.x.x/advertiser/{advertiserId}/offers
+
+Attention, each time you start containers (or sync) that IP will change.
+
+The command to fetch offers and populate them into DB is
+
+`./docker/tools/sf.sh process:advertiser n`  being n the advertiser_id we want to populate
+
+
+###### tests
+
