@@ -35,7 +35,7 @@ class OfferAdvertiserTest extends TestCase
 
     public function testAdvertiser2Offer1()
     {
-        $offer = $this->getOfferForAdvertiser(1, 1);
+        $offer = $this->getOfferForAdvertiser(2, 1);
 
         $this->assertEquals($offer->getPayout(), $this->lastRead['campaigns']['points'] * 1000);
     }
