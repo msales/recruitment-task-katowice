@@ -1,0 +1,22 @@
+services:
+    recruitment.provider.abstract_payout_provider:
+        abstract: true
+        class: Recruitment\ApiBundle\Util\AdvertiserPayoutProvider\Abstraction\AbstractPayoutProvider
+
+    recruitment.provider.payout_provider:
+        class: Recruitment\ApiBundle\Util\AdvertiserPayoutProvider\Provider\PayoutProvider
+        parent: grapes.service_provider
+        tags:
+            - { name: grapes.service_provider, related_tag: advertiser.payout_provider, tag_alias: provider }
+
+    recruitment.provider.flat_payout_provider:
+        parent: recruitment.provider.payout_provider
+        class: Recruitment\ApiBundle\Util\AdvertiserPayoutProvider\Provider\FlatPayoutProvider
+        tags:
+            - { name: advertiser.payout_provider, provider: flat_payout }
+
+    recruitment.provider.points_payout_provider:
+        parent: recruitment.provider.payout_provider
+        class: Recruitment\ApiBundle\Util\AdvertiserPayoutProvider\Provider\PointsPayoutProvider
+        tags:
+            - { name: advertiser.payout_provider, provider: points_payout }

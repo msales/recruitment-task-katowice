@@ -1,2 +1,3 @@
 imports:
     - { resource: util/data_provider.yml }
+    - { resource: util/payout_provider.yml }

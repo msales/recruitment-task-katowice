@@ -1,9 +1,35 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/service_container.html
 parameters:
-    #parameter_name: value
+    base_url: 'http://msales-katowice-trial.app:8082'
 
 services:
+
     #service_name:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+    api_service:
+        class: Recruitment\ApiBundle\Service\ApiService
+        public: true
+
+    guzzle_client:
+      class: Recruitment\ApiBundle\Service\Provider\GuzzleHttpClient
+      arguments: ['%base_url%']
+
+    offers_api_service:
+      class: Recruitment\ApiBundle\Service\OffersApiService
+      arguments : ['@guzzle_client']
+
+    offers_controller:
+      class: Recruitment\ApiBundle\Controller\OffersController
+      arguments : ['@offers_api_service']
+      autowire: false
+      autoconfigure: true
+      calls:
+        - [setContainer, ["@service_container"]]
+
+    get_offers_api_command:
+      class : Recruitment\ApiBundle\Command\GetAdvertiserOffersCommand
+      arguments : ['@offers_controller']
+      tags:
+        - { name : console.command }
