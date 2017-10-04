@@ -1,0 +1,18 @@
+{
+    "id": 3,
+    "advertiser_id": 2,
+    "bundle_id": "com.ncsoft.aramipuzzventure",
+    "platform": "Android",
+    "store_rating": 4.5,
+    "total_ratings": 2770,
+    "category": "Games - Casual Management",
+    "size": "N/A",
+    "developer": "NCSOFT Corporation",
+    "click_url": "http://exampleclickurl.com",
+    "global": false,
+    "countries": [
+        "IND",
+        "USA"
+    ],
+    "points": 330
+}

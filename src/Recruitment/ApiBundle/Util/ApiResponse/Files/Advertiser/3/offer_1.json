@@ -1,0 +1,17 @@
+{
+    "id": 1,
+    "advertiser_id": 3,
+    "bundle_id": "com.amazon.tahoe",
+    "os": "Android",
+    "store_rating": 4.1,
+    "total_ratings": 921,
+    "category": "Entertainment",
+    "size": "N/A",
+    "developer": "Amazon Mobile LLC",
+    "url": "http://exampleclickurl.com",
+    "global": false,
+    "countries": [
+        "USA"
+    ],
+    "points": 1930
+}

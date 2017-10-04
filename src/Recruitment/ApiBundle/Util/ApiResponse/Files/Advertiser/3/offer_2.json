@@ -1,0 +1,18 @@
+{
+    "id": 2,
+    "advertiser_id": 3,
+    "bundle_id": "1218137964",
+    "platform": "iOS",
+    "store_rating": 4.5,
+    "total_ratings": 10,
+    "category": "Games - Casual",
+    "size": "251.0 MB",
+    "developer": "NCSOFT",
+    "url": "http://exampleclickurl.com",
+    "global": false,
+    "countries": [
+        "BRA",
+        "POL"
+    ],
+    "points": 520
+}
