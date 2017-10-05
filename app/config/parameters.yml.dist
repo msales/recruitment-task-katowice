@@ -17,3 +17,6 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
+
+    #local dev host for api requests
+    dev_host: msales-katowice-trial.app:8082/app_dev.php
