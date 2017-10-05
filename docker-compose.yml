@@ -13,11 +13,13 @@ services:
             MYSQL_PASSWORD: user
         ports:
             - 4406:3306
+        tty: true
 
     code:
         build: ./docker/code
         volumes:
             - .:/msales/recruitment-task-katowice
+        tty: true
 
     php:
         container_name: recruitment-task-katowice-php
@@ -27,6 +29,7 @@ services:
             - 9002:9001
         volumes_from:
             - code
+        tty: true
 
     nginx:
         build: ./docker/nginx
@@ -38,6 +41,7 @@ services:
             - code
         depends_on:
             - code
+        tty: true
 
     sf:
         build: ./docker/sf
@@ -45,6 +49,7 @@ services:
             - code
         depends_on:
             - php
+        tty: true
             
     composer:
         build: ./docker/composer
@@ -52,3 +57,4 @@ services:
             - code
         depends_on:
             - php
+        tty: true
