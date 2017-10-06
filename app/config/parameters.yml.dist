@@ -19,3 +19,4 @@ parameters:
     secret: ThisTokenIsNotSoSecretChangeIt
 
     advertisers_endpoint: http://msales-katowice-trial.app:8082/app.php/advertiser/{advertiserId}/offers
+    country_iso: 'alpha2'

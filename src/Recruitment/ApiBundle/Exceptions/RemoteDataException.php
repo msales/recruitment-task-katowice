@@ -6,7 +6,7 @@
  * Time: 20:05
  */
 declare(strict_types=1);
-namespace Recruitment\ApiBundle\Entity;
+namespace Recruitment\ApiBundle\Exceptions;
 
 class RemoteDataException extends \Exception
 {

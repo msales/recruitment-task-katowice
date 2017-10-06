@@ -1,14 +1,15 @@
 <?php
 
-namespace Tests\Recruitment\ApiBundle\PatternsApplied;
+namespace Tests\Recruitment\ApiBundle\Services;
 
 use Recruitment\ApiBundle\Entity\OfferInterface;
-use Recruitment\ApiBundle\Util\PatternsApplied\OfferCollectionBuilder;
 use PHPUnit\Framework\TestCase;
+use Recruitment\ApiBundle\Services\Normalizers\Country\CountryNormalizer;
+use Recruitment\ApiBundle\Services\Offers\OfferStrategyBuilder;
 
 class OfferAdvertiserTest extends TestCase
 {
-    const DATA_FOLDER = '/../../../../src/Recruitment/ApiBundle/Util/ApiResponse/Files/Advertiser';
+    const DATA_FOLDER = __DIR__ . '/../../../../src/Recruitment/ApiBundle/Util/ApiResponse/Files/Advertiser';
     private $lastRead = null;
 
     /**
@@ -18,12 +19,13 @@ class OfferAdvertiserTest extends TestCase
      */
     private function getOfferForAdvertiser($advId, $offerId)
     {
+        $countryNormalizer = new CountryNormalizer();
+        $offerStrategy = new OfferStrategyBuilder($countryNormalizer);
+
         $offerRaw = file_get_contents(sprintf('%s/%s/offer_%d.json', self::DATA_FOLDER, $advId, $offerId));
         $this->lastRead = $offerData = json_decode($offerRaw, true);
 
-        $offers = OfferCollectionBuilder::build($offerData);
-
-        return array_pop($offers->getOffers());
+        return $offerStrategy->buildOffer($offerData);
     }
 
     public function testAdvertiser1Offer1()
@@ -37,6 +39,6 @@ class OfferAdvertiserTest extends TestCase
     {
         $offer = $this->getOfferForAdvertiser(2, 1);
 
-        $this->assertEquals($offer->getPayout(), $this->lastRead['campaigns']['points'] * 1000);
+        $this->assertEquals($offer->getPayout() * 1000, floatval($this->lastRead['campaigns']['points']));
     }
 }

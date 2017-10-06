@@ -6,11 +6,11 @@
  * Time: 20:01
  */
 declare(strict_types=1);
-namespace Recruitment\ApiBundle\Entity;
+namespace Recruitment\ApiBundle\Exceptions;
 
 use Throwable;
 
-class OfferAdvertiserAdapterNotFound extends \Exception
+class OfferAdvertiserNotFound extends \Exception
 {
     public function __construct($advId, $code = 0, Throwable $previous = null)
     {
