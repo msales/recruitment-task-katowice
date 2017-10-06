@@ -8,7 +8,10 @@ use Recruitment\ApiBundle\DTO\ParsedOfferData;
 
 class SecondFormatJsonParser implements JsonParserInterface
 {
-
+    /**
+     * @param string $jsonData
+     * @return array
+     */
     public function parse(string $jsonData): array
     {
         $parsedData = [];
@@ -20,8 +23,7 @@ class SecondFormatJsonParser implements JsonParserInterface
             $tempObject->country = (new ISO3166)->alpha3($data['campaigns']['countries'][0])['alpha2'];
             $tempObject->name = $data['app_details']['developer'] . ' ' . $data['app_details']['version'];
             $tempObject->platform = $data['app_details']['platform'];
-            $tempObject->payout = $data['campaigns']['points'];
-            $tempObject->setPointFlag(true);
+            $tempObject->payout = floatval($data['campaigns']['points'] / 1000);
             $parsedData[] = $tempObject;
         }
 

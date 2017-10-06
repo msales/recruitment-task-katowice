@@ -29,21 +29,4 @@ class ParsedOfferData
      * @var string
      */
     public $platform;
-
-    /**
-     * @var bool
-     */
-    private $points = false;
-
-    public function setPointFlag(bool $flag = false)
-    {
-        $this->points = $flag;
-
-        return $this;
-    }
-
-    public function pointsPayout(): bool
-    {
-        return $this->points;
-    }
 }

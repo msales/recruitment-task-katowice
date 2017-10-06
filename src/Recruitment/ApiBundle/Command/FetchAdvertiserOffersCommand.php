@@ -32,6 +32,13 @@ class FetchAdvertiserOffersCommand extends ContainerAwareCommand
             ->addArgument('advertiserId', InputArgument::REQUIRED, 'Id of the advertiser');
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @throws Exception
+     * @throws WrongAdvertiserIdFormatException
+     * @return void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $advertiserId = $input->getArgument('advertiserId');

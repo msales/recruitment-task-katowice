@@ -7,7 +7,10 @@ use Recruitment\ApiBundle\DTO\ParsedOfferData;
 
 class FirstFormatJsonParser implements JsonParserInterface
 {
-
+    /**
+     * @param string $jsonData
+     * @return array
+     */
     public function parse(string $jsonData): array
     {
         $parsedData = [];

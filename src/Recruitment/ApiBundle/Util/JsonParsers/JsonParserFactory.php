@@ -7,6 +7,11 @@ use Recruitment\ApiBundle\Exception\JsonParsers\UnknownFormatJsonParserException
 
 class JsonParserFactory
 {
+    /**
+     * @param int $advertiserId
+     * @return JsonParserInterface
+     * @throws UnknownFormatJsonParserException
+     */
     static public function make(int $advertiserId): JsonParserInterface
     {
         switch ($advertiserId) {
