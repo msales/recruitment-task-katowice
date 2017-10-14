@@ -27,6 +27,9 @@ services:
             - 9002:9001
         volumes_from:
             - code
+        environment:
+            XDEBUG_CONFIG: "remote_host=172.20.0.4"
+            PHP_IDE_CONFIG: "serverName=rec"
 
     nginx:
         build: ./docker/nginx
