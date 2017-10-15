@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Recruitment\ApiBundle\ApiBundle(),
             new Msales\GrapesBundle\MsalesGrapesBundle(),
+            new EightPoints\Bundle\GuzzleBundle\GuzzleBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
