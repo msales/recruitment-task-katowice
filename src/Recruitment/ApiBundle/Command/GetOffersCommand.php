@@ -33,9 +33,9 @@ class GetOffersCommand extends ContainerAwareCommand
         $offer_service = new OfferService($this->getContainer()->get('guzzle.client.api_crm'));
         $em = $this->getContainer()->get('doctrine')->getEntityManager();
 
-        $offers_response = (array)json_decode($offer_service->get(
+        $offers_response = json_decode($offer_service->get(
             $offer_service->getRoute($base_url, $advertiserId, $offerId)
-        ));
+        ), JSON_OBJECT_AS_ARRAY );
 
         $offers = $offer_service->getCampaigns($offers_response);
         $app_details = $offer_service->getAppDetails($offers_response);
