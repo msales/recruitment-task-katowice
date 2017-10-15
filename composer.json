@@ -7,6 +7,7 @@
             "": "src/"
         },
         "classmap": [
+            "app/CliKernel.php",
             "app/AppKernel.php",
             "app/AppCache.php"
         ]
@@ -21,6 +22,7 @@
     },
     "require": {
         "php": ">=5.5.9",
+        "alcohol/iso3166": "^4.1",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-cache-bundle": "^1.2",
         "doctrine/orm": "^2.5",

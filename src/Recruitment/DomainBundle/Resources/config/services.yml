@@ -1,0 +1,14 @@
+services:
+    app.curl:
+        class: Recruitment\DomainBundle\Curl\Curl
+        arguments:
+            - "%base_api_url%"
+    app.advertiser_service:
+        class: Recruitment\DomainBundle\Advertiser\AdvertiserService
+        arguments:
+            - "@app.curl"
+            - "@app.offer_service"
+    app.offer_service:
+        class: Recruitment\DomainBundle\Advertiser\OfferService
+        arguments:
+            - "@=service('doctrine.orm.default_entity_manager')"
