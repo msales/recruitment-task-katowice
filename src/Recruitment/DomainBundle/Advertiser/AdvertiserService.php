@@ -51,10 +51,6 @@ class AdvertiserService
 
     public function fetch(int $advertiserId)
     {
-        return json_decode(
-            "[{\"id\":2,\"advertiser_id\":2,\"app_details\":{\"bundle_id\":\"1218137964\",\"platform\":\"iOS\",\"store_rating\":4.5,\"total_ratings\":10,\"category\":\"Games - Casual\",\"size\":\"251.0 MB\",\"developer\":\"NCSOFT\",\"version\":\"1.0.6\"},\"campaigns\":{\"cid\":\"12343623\",\"click_url\":\"http:\/\/exampleclickurl.com\",\"global\":false,\"countries\":[\"BRA\"],\"points\":520,\"min_os_version\":null,\"device_id_required\":false}},{\"id\":1,\"advertiser_id\":2,\"app_details\":{\"bundle_id\":\"com.amazon.tahoe\",\"platform\":\"Android\",\"store_rating\":4.1,\"total_ratings\":921,\"category\":\"Entertainment\",\"size\":\"N\/A\",\"developer\":\"Amazon Mobile LLC\",\"version\":\"FreeTimeApp-aosp_v3.9_Build-1.0.83.18.9674\"},\"campaigns\":{\"cid\":\"1244775\",\"click_url\":\"http:\/\/exampleclickurl.com\",\"global\":false,\"countries\":[\"USA\"],\"points\":1930,\"min_os_version\":\"5.0\",\"device_id_required\":false}},{\"id\":3,\"advertiser_id\":2,\"app_details\":{\"bundle_id\":\"com.ncsoft.aramipuzzventure\",\"platform\":\"Android\",\"store_rating\":4.5,\"total_ratings\":2770,\"category\":\"Games - Casual Management\",\"size\":\"N\/A\",\"developer\":\"NCSOFT Corporation\",\"version\":\"1.0.6\"},\"campaigns\":{\"cid\":\"13213622\",\"click_url\":\"http:\/\/exampleclickurl.com\",\"global\":false,\"countries\":[\"IND\"],\"points\":330,\"min_os_version\":\"4.1\",\"device_id_required\":false}}]",
-            true
-        );
         return $this->curl->fetchAdvertiserOffers($advertiserId);
     }
 }
