@@ -17,5 +17,4 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
-    base_api_url: http://msales-katowice-trial.app:8082/
-    base_api_url: http://msales-katowice-trial.app:8082/
+    base_api_url: 'http://172.20.0.5/'

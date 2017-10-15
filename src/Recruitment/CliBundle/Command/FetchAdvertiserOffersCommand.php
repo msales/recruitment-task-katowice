@@ -7,12 +7,12 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class FetchAdvertiserDataCommand extends ContainerAwareCommand
+class FetchAdvertiserOffersCommand extends ContainerAwareCommand
 {
     public function configure()
     {
-        $this->setName("app:advertisers:fetchData");
-        $this->setDescription("fetch specified advertiser data");
+        $this->setName("app:advertisers:fetchOffers");
+        $this->setDescription("fetch specified advertiser's offers");
         $this->addArgument("advertiserId", InputArgument::REQUIRED);
     }
 
