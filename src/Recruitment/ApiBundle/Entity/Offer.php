@@ -17,7 +17,7 @@ class Offer
     protected $id;
 
     /** @ORM\Column(length=32, unique=true) */
-    protected $application_id;
+    public $application_id;
 
     /**
      * @ORM\Column(name="country", type="string", length=3, nullable=true)
@@ -36,10 +36,4 @@ class Offer
 
     /** @ORM\Column(type="string", columnDefinition="ENUM('Android', 'iOS')") */
     public $platform;
-
-
-    public function setApplicationId(string $offer_json) : void
-    {
-        $this->application_id = md5($offer_json . time());
-    }
 }
