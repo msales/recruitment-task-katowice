@@ -52,3 +52,10 @@ services:
             - code
         depends_on:
             - php
+
+    vendor:
+        build: ./docker/vendor_bin
+        volumes_from:
+            - code
+        depends_on:
+            - php

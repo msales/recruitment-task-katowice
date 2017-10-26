@@ -14,3 +14,27 @@ services:
         class: Recruitment\ApiBundle\Util\ApiResponse\Loader\FileLoader
         arguments:
             - "@recruitment.finder.api_files_finder"
+
+    recruitment.country_normalizer:
+        class: Recruitment\ApiBundle\Services\Normalizers\Country\CountryNormalizer
+        arguments:
+            - '%country_iso%'
+
+    recruitment.offer_fetcher_service:
+        class: Recruitment\ApiBundle\Services\Offers\OffersCurlFetcherService
+        arguments:
+            - "%advertisers_endpoint%"
+
+    recruitment.offer_strategy_builder:
+        class: Recruitment\ApiBundle\Services\Offers\OfferStrategyBuilder
+        arguments:
+            - "@recruitment.country_normalizer"
+
+    recruitment.offer_process_command:
+        class: Recruitment\ApiBundle\Command\ProcessAdvertiserCommand
+        arguments:
+            - "@recruitment.offer_fetcher_service"
+            - "@recruitment.offer_strategy_builder"
+        tags:
+            - { name: console.command }
+
