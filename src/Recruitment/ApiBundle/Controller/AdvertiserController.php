@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace Recruitment\ApiBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as REST;
@@ -12,14 +13,14 @@ class AdvertiserController extends AbstractBaseRestController
     use ApiFilesVariablesTrait;
 
     /**
-     * @REST\Get("/{advertiser}/{advertiserId}/offers",
+     * @REST\Get("/{advertiser}/{advertiserId}/offers", name="test",
      *     requirements={
      *       "advertiserId"="\d+"
-     *  }
+     *  }, name="fetch_offers", options={ "method_prefix" = false }
      * )
      *
      * @param string $advertiser
-     * @param int    $advertiserId
+     * @param int $advertiserId
      *
      * @return JsonResponse
      */
@@ -29,7 +30,7 @@ class AdvertiserController extends AbstractBaseRestController
             $this->getBulkData(
                 [
                     $this->entityName => $advertiser,
-                    $this->entityId   => $advertiserId,
+                    $this->entityId => $advertiserId,
                 ]
             )
         );
@@ -44,9 +45,9 @@ class AdvertiserController extends AbstractBaseRestController
      * )
      *
      * @param string $advertiser
-     * @param int    $advertiserId
+     * @param int $advertiserId
      * @param string $offer
-     * @param int    $offerId
+     * @param int $offerId
      *
      * @return JsonResponse
      */
@@ -55,10 +56,10 @@ class AdvertiserController extends AbstractBaseRestController
         return $this->returnJsonResponse(
             $this->getData(
                 [
-                    $this->entityName   => $advertiser,
-                    $this->entityId     => $advertiserId,
+                    $this->entityName => $advertiser,
+                    $this->entityId => $advertiserId,
                     $this->propertyName => $offer,
-                    $this->propertyId   => $offerId,
+                    $this->propertyId => $offerId,
                 ]
             )
         );

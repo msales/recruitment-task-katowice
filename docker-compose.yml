@@ -45,7 +45,7 @@ services:
             - code
         depends_on:
             - php
-            
+
     composer:
         build: ./docker/composer
         volumes_from:

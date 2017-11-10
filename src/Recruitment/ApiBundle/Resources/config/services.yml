@@ -5,6 +5,7 @@ services:
     symfony.finder:
         class: Symfony\Component\Finder\Finder
 
+
     recruitment.finder.api_files_finder:
         class: Recruitment\ApiBundle\Util\ApiResponse\Finder\ApiFilesFinder
         arguments:
@@ -14,3 +15,12 @@ services:
         class: Recruitment\ApiBundle\Util\ApiResponse\Loader\FileLoader
         arguments:
             - "@recruitment.finder.api_files_finder"
+
+    recruitment.json_parsers.factory:
+        class: Recruitment\ApiBundle\Util\JsonParsers\JsonParserFactory
+
+    recruitment.services.offer_service:
+        class: Recruitment\ApiBundle\Util\Services\OfferService
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+
