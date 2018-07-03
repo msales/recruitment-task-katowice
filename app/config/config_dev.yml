@@ -32,3 +32,34 @@ monolog:
 
 #swiftmailer:
 #    delivery_addresses: ['me@example.com']
+
+guzzle:
+    # (de)activate logging/profiler; default: %kernel.debug%
+    logging: true
+    clients:
+        msales:
+            base_url: "http://localhost:85/"
+            headers:
+                Accept: "application/json"
+
+#JUST TO SHOW THAT I CAN CREATE MY OWN CONFIGURATIONS INSIDE A BUNDLE
+api:
+    advertiser_offers_url: "app_dev.php/advertiser/%d/offers.json"
+    # Mapping of advertisers fields, matching the depth of advertisers response
+    allowed_fields:
+        advertiser_id: ""
+        payout_amount: ""
+        payout_currency: ""
+        name: ""
+        countries: ""
+        campaign_id: "application_id"
+        mobile_platform: "platform"
+        app_details:
+            platform: "platform"
+            bundle_id: "name"
+        campaigns:
+            countries: "countries"
+            points: "payout_amount"
+            cid: "application_id"
+    # 10 points = $0.001
+    points_rate: 0.001

@@ -49,6 +49,10 @@ doctrine:
         user: '%database_user%'
         password: '%database_password%'
         charset: UTF8
+        mapping_types:
+            enum: string
+        types:
+            money: Tbbc\MoneyBundle\Type\MoneyType
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/../var/data/data.sqlite"
@@ -60,6 +64,7 @@ doctrine:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -93,3 +98,49 @@ fos_rest:
 jms_serializer:
     metadata:
         auto_detection: true
+
+knp_doctrine_behaviors:
+    soft_deletable: true
+    timestampable: true
+
+#Manage multiple currencies (Think about scalability)
+tbbc_money:
+    currencies: ["USD"]
+    reference_currency: "USD"
+    decimals: 2
+
+guzzle:
+    # (de)activate logging/profiler; default: %kernel.debug%
+    logging: true
+    clients:
+        msales:
+            base_url: "http://localhost:85/"
+            headers:
+                Accept: "application/json"
+
+#Configuration of "api" own logic, if the contract changes, we will save time by not changing the code
+api:
+    advertiser_offers_url: "/advertiser/%d/offers.json"
+    # Mapping of advertisers fields, matching the depth of advertisers response
+    # Ex: If api response contains campaigns.countries, we say that that's the field name is 'country'
+    #     Otherwise, if api response only contains countries, default name will be 'country'
+    #     Other example, if we see in api response app_details.bundle_id, we define it as the 'name'
+    # You don't have anymore to change your code to match new fields from another advertiser
+    # This is a wrapper
+    allowed_fields:
+        advertiser_id: ""
+        payout_amount: ""
+        payout_currency: ""
+        name: ""
+        countries: ""
+        campaign_id: "application_id"
+        mobile_platform: "platform"
+        app_details:
+            platform: "platform"
+            bundle_id: "name"
+        campaigns:
+            countries: "countries"
+            points: "payout_amount"
+            cid: "application_id"
+    #allowed_fields: "advertiser_id,payout_amount,payout_currency,name,countries,mobile_platform,app_details.platform,campaigns.countries,campaigns.points"
+    points_rate: 0.001 # 10 points = $0.001
