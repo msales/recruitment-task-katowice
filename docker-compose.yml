@@ -1,54 +1,39 @@
-version: '2'
+version: "3"
 
 services:
-    db:
-        build: ./docker/mysql
+    nginx:
+        container_name: nginx.trial
+        build: .docker/nginx
         volumes:
-            - "../recruitment-task-katowice-db:/var/lib/mysql"
-        image: mysql
+            - .:/msales/recruitment-task-katowice:delegated
+        networks:
+            - recruitment-task-katowice
+        ports:
+            - 8082:80
+
+    php_fpm:
+        container_name: php_fpm.trial
+        build: .docker/php-fpm
+        networks:
+            - recruitment-task-katowice
+        ports:
+            - 9001:9001
+        volumes:
+            - .:/msales/recruitment-task-katowice:delegated
+
+    mysql:
+        container_name: mysql.trial
+        build: .docker/mysql
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: symfony
             MYSQL_USER: user
             MYSQL_PASSWORD: user
+        networks:
+            - recruitment-task-katowice
         ports:
             - 4406:3306
 
-    code:
-        build: ./docker/code
-        volumes:
-            - .:/msales/recruitment-task-katowice
-
-    php:
-        container_name: recruitment-task-katowice-php
-        build: ./docker/php7
-        image: php-recruitment
-        ports:
-            - 9002:9001
-        volumes_from:
-            - code
-
-    nginx:
-        build: ./docker/nginx
-        volumes:
-            - ./logs/nginx/:/var/log/nginx
-        ports:
-            - 8082:80
-        volumes_from:
-            - code
-        depends_on:
-            - code
-
-    sf:
-        build: ./docker/sf
-        volumes_from:
-            - code
-        depends_on:
-            - php
-            
-    composer:
-        build: ./docker/composer
-        volumes_from:
-            - code
-        depends_on:
-            - php
+networks:
+    recruitment-task-katowice:
+        external: true
